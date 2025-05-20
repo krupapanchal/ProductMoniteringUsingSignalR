@@ -1,0 +1,29 @@
+﻿
+<div class="container mt-4">
+    <h2 class="mb-4">Add Product</h2>
+    <form asp-action="AddProduct" method="post">
+        <div class="mb-3">
+            <label for="ProductName" class="form-label">Product Name</label>
+            <input type="text" name="Name" id="Name" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="CategoryId" class="form-label">Category</label>
+            <select name="Catid" id="Catid" class="form-select" asp-items="ViewBag.Categories" required>
+                <option value="">-- Select Category --</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="Price" class="form-label">Price</label>
+            <input type="number" name="Price" id="Price" class="form-control" step="0.01" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="Stock" class="form-label">Stock</label>
+            <input type="number" name="Stock" id="Stock" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

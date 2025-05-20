@@ -1,0 +1,40 @@
+﻿
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Sr No</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Category</th></tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+</table>
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.0/signalr.min.js"></script>
+    <script>
+
+        const connection = new signalR.HubConnectionBuilder().withUrl("/SignalR/ProductHub").build();
+        connection.start().then(loadData);
+        connection.on("ReceiveUpdate", loadData);
+        
+        function loadData() {
+            fetch('/Product/GetAll').then(res => res.json()).then(data => {
+                let html = '';
+                data.forEach((item, i) => {
+                    console.log(item);
+                    html += `<tr>
+                        <td width="50">${i + 1}</td>
+                        <td width="50">${item.name}</td>
+                        <td width="50">${item.price}</td>
+                        <td width="50">${item.stock}</td>
+                        <td width="150">${item.categoryName}</td>
+                    </tr>`;
+                });
+                document.getElementById("tableBody").innerHTML = html;
+            });
+        }
+    </script>
+}
